@@ -1,5 +1,9 @@
 module FamiphotosRecommend
-  class Base
+  module Base
+    def save_async
+      "#{self.class}History".capitalize.new("#{self.class}_id".capitalize.to_sym => read_attribute(self.id)).save
+    end
+
     def recommend
       # Modelにincludeして、モデルのInstanceからこのrecommendメソッドを呼ぶと
       # id(もしくはPK)に対して協調フィルタの計算をして、それに近いデータをredisから取得し返す
